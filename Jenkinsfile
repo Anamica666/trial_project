@@ -26,7 +26,7 @@ pipeline {
                                         execTimeout: 120000,
                                         sourceFiles: '**/*.php',
                                         remoteDirectory: '/var/www/html',
-                                        keyPath: '/home/ubuntu/.ssh',  
+                                        keyPath: '/home/ubuntu/.ssh', // Path to your private key file  
                                         cleanRemote: false
                                     )
                                 ]
