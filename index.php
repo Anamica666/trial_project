@@ -1,7 +1,8 @@
 <html>
-  <head>
-    <h1>
-      Hi testing the jenkin automation ??!
-    </h1>
-  </head>
+ <head>
+  <title>Index</title>
+ </head>
+ <body>
+ <?php echo '<p>Hello world from PHP! Declarative pipeline!!</p>'; ?> 
+ </body>
 </html>
