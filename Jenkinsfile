@@ -1,33 +1,39 @@
 pipeline {
     agent any
- 
+    
     stages {
-        stage('Deploy PHP application') {
+        stage('Checkout SCM') {
             steps {
-                sshPublisher(publishers: [
-                    sshPublisherDesc(
-                        configName: 'apache2',
-                        transfers: [
-                            sshTransfer(
-                                cleanRemote: false,
-                                excludes: '',
-                                execCommand: '',
-                                execTimeout: 120000,
-                                flatten: false,
-                                makeEmptyDirs: false,
-                                noDefaultExcludes: false,
-                                patternSeparator: '[, ]+',
-                                remoteDirectory: '/var/www/html',
-                                remoteDirectorySDF: false,
-                                removePrefix: '',
-                                sourceFiles: '**/*.php'
+                script {
+                    // Your SCM checkout steps here
+                    // For example, Git checkout
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Deploy PHP Application') {
+            steps {
+                script {
+                    // Your deployment steps here
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'apache2',
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'Deploy PHP application',
+                                        execTimeout: 120000,
+                                        sourceFiles: '**/*.php',
+                                        remoteDirectory: '/var/www/html',
+                                        keyPath: '/home/ubuntu/.ssh',  
+                                        cleanRemote: false
+                                    )
+                                ]
                             )
-                        ],
-                        usePromotionTimestamp: false,
-                        useWorkspaceInPromotion: false,
-                        verbose: false
+                        ]
                     )
-                ])
+                }
             }
         }
     }
